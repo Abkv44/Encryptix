@@ -2,6 +2,7 @@
 
 import random
 import string
+import sys
 
 def generate_strong_password(length=16, allowed_chars=None):
     # Define a common set of allowed characters, excluding potentially restricted ones
@@ -47,7 +48,7 @@ def generate_medium_password(length=6):
 
 
 def generate_Ulength_password():
-    length = int(input("input length\nMinimum 4\n"))
+    length = int(input("Enter length(Minimum 4)\n"))
     if length < 4:
         print("length should be >= 4")
     else:
@@ -56,30 +57,47 @@ def generate_Ulength_password():
         print("Your password:", generate_strong_password(length), "\nStrength - strong")
     
 def main():
+    print("Enter Password strength: ")
+    print("1. Easy to remember and short")
+    print("2. Moderate strength")
+    print("3. Strong password")
+    print("4. Quit")
+    print("5. For User defined length")
+
+    try:
+        user_choice = int(input("Choose (1-5): "))
+        if user_choice == 1:
+            print("Your Password:", generate_easy_password())
+        elif user_choice == 2:
+            print("Your Password:", generate_medium_password())
+        elif user_choice == 3:
+            print("Your Password:", generate_strong_password())
+        elif user_choice == 4:
+            sys.exit()
+        elif user_choice == 5:
+            generate_Ulength_password()
+        else:
+            print("Invalid choice. Please enter a number between 1 and 4.")
+    except ValueError:
+        print("Invalid input. Please enter a number between 1 and 4.")
+
+
+
+def ask():
+    ask1 = "Generate password?\nEnter (y/n)"
+    ask2 = "Generate password again?\nEnter (y/n)"
+    count = 0
     while True:
-        print("Enter Password strength: ")
-        print("1. Easy to remember and short")
-        print("2. Moderate strength")
-        print("3. Strong password")
-        print("4. Quit")
-        print("5. For User defined length")
-
-        try:
-            user_choice = int(input("Choose (1-5): "))
-            if user_choice == 1:
-                print("Your Password:", generate_easy_password())
-            elif user_choice == 2:
-                print("Your Password:", generate_medium_password())
-            elif user_choice == 3:
-                print("Your Password:", generate_strong_password())
-            elif user_choice == 4:
-                break
-            elif user_choice == 5:
-                generate_Ulength_password()
-            else:
-                print("Invalid choice. Please enter a number between 1 and 4.")
-        except ValueError:
-            print("Invalid input. Please enter a number between 1 and 4.")
-
+        if count == 0:
+            user = input(ask1)
+        else:
+            user = input(ask2)
+        if user == "y":
+            main()
+        else:
+            print("Thanks for your response!")
+            break
+        count=1
+    
 if __name__ == "__main__":
-    main()
+    ask()
